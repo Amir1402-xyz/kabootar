@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Kabootar: a pigeon carrying a letter -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:fillColor="#279fda"
-        android:pathData="M 36,30 L 72,30 L 72,38 L 58,38 L 58,78 L 50,78 L 50,38 L 36,38 Z" />
-    <path
-        android:fillColor="#1c75a1"
-        android:pathData="M 54,30 L 72,30 L 72,38 L 58,38 L 58,78 L 54,78 Z" />
+    <group
+        android:translateX="6.810"
+        android:translateY="13.830"
+        android:scaleX="0.780"
+        android:scaleY="0.780">
+        <path android:fillColor="#E3EEF7" android:pathData="M40,60 C34,62 28,66 24,72 C28,73 32,72 34,70 C33,74 34,77 36,79 C39,75 42,70 45,65 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M37,63 C42,52 54,46 66,44 C70,42 74,40 77,42 C80,46 79,53 74,58 C66,66 52,70 39,67 Z" />
+        <path android:fillColor="#D6E6F3" android:pathData="M50,55 C46,46 44,38 46,30 C52,36 58,44 62,52 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M46,58 C40,50 34,40 32,28 C34,29 37,30 39,31 C39,28 40,26 41,24 C44,27 46,29 48,31 C49,28 50,26 52,25 C55,32 58,40 62,52 Z" />
+        <path android:fillColor="#CFE0EE" android:pathData="M47,56 C43,49 39,42 37,34 C41,41 45,48 51,54 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M76,46 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+        <path android:fillColor="#F5A623" android:pathData="M82,44.5 L87,46.5 L82,48.5 Z" />
+        <path android:fillColor="#1B2A38" android:pathData="M78,44.2 m-1.4,0 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0" />
+        <path android:fillColor="#FFD166" android:pathData="M84,46 L97,50.5 L94,60 L81,55.5 Z" />
+        <path android:fillColor="#E0A93E" android:pathData="M84,46 L97,50.5 L90,56 Z" />
+    </group>
 </vector>
