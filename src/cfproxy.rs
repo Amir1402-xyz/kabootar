@@ -236,13 +236,13 @@ fn save_cfproxy_domains_to_cache(domains: &[String]) {
     }
     if let Some(parent) = path.parent() {
         if let Err(e) = std::fs::create_dir_all(parent) {
-            ldebug!(" CF: кеш создать не удалось: {}", e);
+            ldebug!(" CF: ساخت کش ممکن نشد: {}", e);
             return;
         }
     }
     let data = domains.join("\n");
     if let Err(e) = std::fs::write(&path, data) {
-        ldebug!(" CF: кеш сохранить не удалось: {}", e);
+        ldebug!(" CF: ذخیره‌ی کش ممکن نشد: {}", e);
     }
 }
 
@@ -286,7 +286,7 @@ pub fn init_cfproxy_domains() {
         cfg.domains = merge_cfproxy_domains(&[cached, defaults]);
         crate::balancer::BALANCER.write().update_domains_list(&cfg.domains);
         drop(cfg);
-        linfo!(" CF: кеш доменов загружен ({} шт.)", n);
+        linfo!(" CF: کش دامنه‌ها بارگذاری شد ({} عدد)", n);
     } else {
         cfg.domains = defaults;
         crate::balancer::BALANCER.write().update_domains_list(&cfg.domains);
@@ -295,7 +295,7 @@ pub fn init_cfproxy_domains() {
 
 pub fn start_cfproxy_refresh() {
     if !should_refresh_cfproxy_domains() {
-        ldebug!(" CF: кеш свежий, пропускаю обновление списка");
+        ldebug!(" CF: کش تازه است، به‌روزرسانی لازم نیست");
         return;
     }
     tokio::spawn(async move {
@@ -305,7 +305,7 @@ pub fn start_cfproxy_refresh() {
             }
             tokio::time::sleep(Duration::from_secs(10)).await;
         }
-        ldebug!(" CF: обновить список доменов не удалось, остаюсь на кеше/встроенном списке");
+        ldebug!(" CF: به‌روزرسانی لیست دامنه‌ها ممکن نشد، از کش/لیست داخلی استفاده می‌شود");
     });
 }
 
@@ -331,18 +331,18 @@ pub async fn try_refresh_cfproxy_domains() -> bool {
     {
         Ok(r) => r,
         Err(e) => {
-            ldebug!(" CF: GitHub недоступен: {}", e);
+            ldebug!(" CF: گیتهاب در دسترس نیست: {}", e);
             return false;
         }
     };
     if resp.status().as_u16() != 200 {
-        ldebug!(" CF: GitHub вернул {}", resp.status().as_u16());
+        ldebug!(" CF: پاسخ گیتهاب {}", resp.status().as_u16());
         return false;
     }
     let body = match resp.text().await {
         Ok(b) => b,
         Err(e) => {
-            ldebug!(" CF: список доменов прочитать не удалось: {}", e);
+            ldebug!(" CF: خواندن لیست دامنه‌ها ممکن نشد: {}", e);
             return false;
         }
     };
@@ -370,7 +370,7 @@ pub async fn try_refresh_cfproxy_domains() -> bool {
         }
         crate::balancer::BALANCER.write().update_domains_list(&merged);
         save_cfproxy_domains_to_cache(&merged);
-        linfo!(" CF: список доменов обновлен ({} шт.)", new_domains.len());
+        linfo!(" CF: لیست دامنه‌ها به‌روز شد ({} عدد)", new_domains.len());
         return true;
     }
     false

@@ -237,20 +237,20 @@ fun FloatingToolbar(
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
                     val prefs = LocalContext.current.getSharedPreferences("lang_prefs", android.content.Context.MODE_PRIVATE)
-                    val currentLang = prefs.getString("app_language", "ru") ?: "ru"
+                    val currentLang = prefs.getString("app_language", "fa") ?: "fa"
                     val activity = LocalContext.current as? android.app.Activity
                     
                     Text(
-                        "Language / Язык",
+                        "زبان / Language",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 6.dp, start = 4.dp)
                     )
                     ThemeOption(
-                        label = "Русский",
-                        selected = currentLang == "ru",
+                        label = "فارسی",
+                        selected = currentLang == "fa",
                         onClick = {
-                            prefs.edit().putString("app_language", "ru").apply()
+                            prefs.edit().putString("app_language", "fa").apply()
                             activity?.recreate()
                             isExpanded = false
                         }

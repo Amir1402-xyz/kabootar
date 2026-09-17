@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("lang_prefs", Context.MODE_PRIVATE)
-        val lang = prefs.getString("app_language", "ru") ?: "ru"
+        val lang = prefs.getString("app_language", "fa") ?: "fa"
         val locale = Locale(lang)
         Locale.setDefault(locale)
         val config = android.content.res.Configuration(newBase.resources.configuration)
@@ -740,7 +740,7 @@ object LogManager {
 
         val isEssential = listOf(
             "pool", "key:", "started", "address:", "error", "failed", "blocked",
-            "Пул", "Ключ:", "запущен", "Адрес:", "ошибка", "провалены", "заблокирован"
+            "پراکسی روشن شد", "آدرس:", "خطا", "ناموفق", "مسدود"
         ).any { marker -> message.contains(marker, ignoreCase = true) }
 
         return LogEntry(

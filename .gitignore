@@ -1,0 +1,7 @@
+/build
+/app/build
+/target
+/.gradle
+/app/src/main/jniLibs/
+*.keystore
+*.jks

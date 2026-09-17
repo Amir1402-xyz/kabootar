@@ -176,7 +176,7 @@ impl Stats {
     }
 
     pub fn summary_ru(&self) -> String {
-        let mut parts = vec![format!("акт:{}", self.connections_active.load(Ordering::Relaxed))];
+        let mut parts = vec![format!("فعال:{}", self.connections_active.load(Ordering::Relaxed))];
         let ws = self.connections_ws.load(Ordering::Relaxed);
         if ws > 0 {
             parts.push(format!("ws:{}", ws));
@@ -191,7 +191,7 @@ impl Stats {
         }
         let err = self.ws_errors.load(Ordering::Relaxed);
         if err > 0 {
-            parts.push(format!("ош:{}", err));
+            parts.push(format!("خطا:{}", err));
         }
         parts.push(format!(
             "↑{} ↓{}",

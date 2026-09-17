@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Telegram WS Proxy</string>
+    <string name="app_name">Kabootar</string>
     <string name="status_connecting">Connecting</string>
     <string name="status_connected">Connected</string>
     <string name="status_disconnected">Disconnected</string>
-    <string name="section_launch">Launch</string>
+    <string name="section_launch">Kabootar · for Telegram</string>
     <string name="apply_in_telegram">Apply in Telegram</string>
     <string name="copied">Copied</string>
     <string name="copy">Copy</string>
@@ -74,7 +74,7 @@
     <string name="help_slow_connect_text">If Telegram keeps connecting for a long time after the proxy starts, it usually means the current route failed, not that the app crashed. In this case, quickly restart the proxy and compare behavior with Cloudflare enabled and disabled.</string>
     <string name="understood">Got it</string>
     <string name="hero_description">Local MTProto proxy for Android with direct routing and Cloudflare mode. Useful on networks where Telegram loads unstably or gets stuck on routing.</string>
-    <string name="support_development">Support development</string>
+    <string name="support_development">Our Telegram channel</string>
     <string name="support_project">Project support</string>
     <string name="support_title">If the app really helps you, you can support the project.</string>
     <string name="support_subtitle">Inside are donation options for the Android version author and for the original idea author.</string>
@@ -127,4 +127,14 @@
     <string name="interval_never">Never</string>
     <string name="interval_hours">%1$d h</string>
     <string name="port_is_not_available">Port %1$d is in use, please try another one</string>
+    <string name="channel_title">Our channel: @parsv2r</string>
+    <string name="channel_subtitle">Guides, updates and news</string>
+    <string name="channel_join">Join</string>
+    <string name="label_packets">Traffic</string>
+    <string name="label_link">Link</string>
+    <string name="clients_not_found">No Telegram client found</string>
+    <string name="client_open_error">Could not open the client</string>
+    <string name="choose_client">Choose a client</string>
+    <string name="client_choose_error">Could not choose a client</string>
+    <string name="ip_and_port">IP and port</string>
 </resources>

@@ -562,7 +562,7 @@ pub async fn tcp_fallback(
     let _ = remote.set_nodelay(true);
 
     STATS.connections_tcp_fallback.fetch_add(1, Ordering::Relaxed);
-    linfo!(" DC{}{} подключен по TCP", dc, media_tag(is_media));
+    linfo!(" DC{}{} از TCP وصل شد", dc, media_tag(is_media));
     if remote.write_all(init).await.is_err() {
         return false;
     }
@@ -663,7 +663,7 @@ async fn cfproxy_acquire_ws(
     }
 
     let m_tag = media_tag(is_media);
-    ldebug!(" CF fallback DC{}{}: {} домен(ов)", dc, m_tag, ordered.len());
+    ldebug!(" CF جایگزین DC{}{}: {} دامنه", dc, m_tag, ordered.len());
 
     let mut ws: Option<RawWebSocket> = None;
     let mut chosen_domain = String::new();
@@ -710,13 +710,13 @@ async fn cfproxy_acquire_ws(
         Some(w) => {
             if !chosen_domain.is_empty() {
                 if crate::balancer::BALANCER.write().update_domain_for_dc(dc, &chosen_domain) {
-                    linfo!(" CF домен для DC{} -> {}", dc, chosen_domain);
+                    linfo!(" دامنه‌ی CF برای DC{} -> {}", dc, chosen_domain);
                 }
             }
             Some((w, chosen_domain))
         }
         None => {
-            lwarn!(" CF fallback DC{}{}: все CF домены недоступны", dc, m_tag);
+            lwarn!(" CF جایگزین DC{}{}: هیچ دامنه‌ی CF در دسترس نیست", dc, m_tag);
             None
         }
     }
@@ -755,7 +755,7 @@ pub async fn do_fallback(
             cfproxy_acquire_ws(dc, is_media, &cancel_token).await
         {
             STATS.connections_cfproxy.fetch_add(1, Ordering::Relaxed);
-            linfo!(" DC{}{} подключен через CF", dc, media_tag(is_media));
+            linfo!(" DC{}{} از مسیر CF وصل شد", dc, media_tag(is_media));
 
             if ws.send(relay_init).await.is_err() {
                 ws.close().await;
@@ -999,10 +999,10 @@ pub async fn handle_client(pool: Arc<WsPool>, mut conn: TcpStream, cancel_token:
         };
 
     if ws_opt.is_none() {
-        lwarn!(" DC{}{}: все попытки WS провалены (DPI/Интернет)", dc, m_tag);
+        lwarn!(" DC{}{}: همه‌ی تلاش‌های WS ناموفق بود (فیلتر/اینترنت)", dc, m_tag);
         if ws_failed_redirect && all_redirects {
             WS_BLACKLIST.write().insert(dc_key, true);
-            lwarn!(" DC{}{} заблокирован (302)", dc, m_tag);
+            lwarn!(" DC{}{} مسدود است (302)", dc, m_tag);
         } else {
             DC_FAIL_UNTIL.write().insert(dc_key, now + DC_FAIL_COOLDOWN);
         }
@@ -1042,7 +1042,7 @@ pub async fn handle_client(pool: Arc<WsPool>, mut conn: TcpStream, cancel_token:
             None => {
                 if retry_failed_redirect && retry_all_redirects {
                     WS_BLACKLIST.write().insert(dc_key, true);
-                    lwarn!(" DC{}{} заблокирован (302)", dc, m_tag);
+                    lwarn!(" DC{}{} مسدود است (302)", dc, m_tag);
                 }
                 lwarn!(" direct fallback DC{}{}", dc, m_tag);
                 let splitter_fb = MsgSplitter::new(&relay_init, proto);
@@ -1173,8 +1173,8 @@ pub async fn run_proxy(
     }
 
     linfo!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    linfo!("  TG WS Proxy запущен");
-    linfo!("  Адрес: {}:{}", host, port);
+    linfo!("  پراکسی روشن شد");
+    linfo!("  آدرس: {}:{}", host, port);
 
     let cancel_stats = cancel_root.clone();
     tokio::spawn(async move {

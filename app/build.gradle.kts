@@ -10,10 +10,10 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.amurcanov.tgwsproxy"
+        applicationId = "xyz.kabootar.tg"
         targetSdk = 35
-        versionCode = 123
-        versionName = "1.2.3"
+        versionCode = 1
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

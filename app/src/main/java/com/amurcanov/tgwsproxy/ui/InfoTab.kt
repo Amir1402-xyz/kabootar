@@ -100,7 +100,7 @@ import kotlin.math.sin
 import kotlinx.coroutines.launch
 
 private const val AndroidForkRepoUrl = "https://github.com/amurcanov/tg-ws-proxy-android"
-private const val AndroidForkIssuesUrl = "https://github.com/amurcanov/tg-ws-proxy-android/issues"
+private const val AndroidForkIssuesUrl = "https://github.com/Amir1402-xyz/kabootar/issues"
 private const val DeveloperProfileUrl = "https://github.com/amurcanov"
 private const val OriginalProjectUrl = "https://github.com/Flowseal/tg-ws-proxy"
 private const val ProxyReferenceUrl = "https://github.com/Flowseal/tg-ws-proxy/issues/389"
@@ -603,7 +603,7 @@ private fun InfoHeroCard(onSupportClick: () -> Unit) {
 
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Telegram WS Proxy",
+                        text = stringResource(R.string.app_name),
                         style = MaterialTheme.typography.headlineSmall.copy(
                             fontWeight = FontWeight.Black,
                             fontSize = 30.sp,
@@ -619,8 +619,20 @@ private fun InfoHeroCard(onSupportClick: () -> Unit) {
                     )
                 }
 
+                val heroContext = LocalContext.current
                 Button(
-                    onClick = onSupportClick,
+                    onClick = {
+                        try {
+                            heroContext.startActivity(
+                                android.content.Intent(
+                                    android.content.Intent.ACTION_VIEW,
+                                    android.net.Uri.parse("tg://resolve?domain=parsv2r")
+                                )
+                            )
+                        } catch (_: Exception) {
+                            openUrlInBrowser(heroContext, "https://t.me/parsv2r")
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(54.dp),
