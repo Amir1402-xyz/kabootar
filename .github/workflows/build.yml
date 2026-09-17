@@ -60,7 +60,23 @@ jobs:
           gradle-version: "9.1.0"
 
       - name: Build APKs
-        run: gradle assembleRelease --no-daemon --stacktrace
+        run: |
+          set -o pipefail
+          gradle assembleRelease --no-daemon 2>&1 | tee build.log
+
+      # Job logs live on storage that the maintainer tooling cannot reach, so on
+      # failure the useful part of the Gradle output is pushed to a side branch.
+      - name: Publish failure log
+        if: failure()
+        run: |
+          { grep -nE "^e: |error:|What went wrong|FAILURE|Caused by|> " build.log | head -150; echo ----; tail -120 build.log; } > ci-failure.txt || true
+          git config user.name "ci"
+          git config user.email "ci@users.noreply.github.com"
+          git checkout --orphan ci-logs
+          git rm -rq --cached . || true
+          git add -f ci-failure.txt
+          git commit -qm "ci failure ${GITHUB_RUN_ID}"
+          git push -f origin ci-logs
 
       - name: Collect
         run: |
